@@ -20,6 +20,9 @@ jobs:
           python-version: 3.7
       - name: "Install dependencies"
         run: "scripts/install"
+      - name: Install build dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install build
       - name: "Build package"
         run: "scripts/build"
       - name: "Publish to PyPI"

@@ -86,3 +86,8 @@ addopts = [
 ]
 xfail_strict = true
 junit_family = "xunit2"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/openapi_schemas_pydantic",
+]
