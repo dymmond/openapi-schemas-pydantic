@@ -22,7 +22,7 @@ jobs:
         run: "scripts/install"
       - name: Install build dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install build
+        run: pip install build twine
       - name: "Build package"
         run: "scripts/build"
       - name: "Publish to PyPI"
