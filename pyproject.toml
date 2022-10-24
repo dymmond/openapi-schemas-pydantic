@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openapi-schemas-pydantic"
+dynamic = ['version']
+description = "OpenAPI Schema using pydantic. Forked for Esmerald."
+long_description = "OpenAPI Schema using pydantic. Forked for Esmerald."
+authors = [
+    { name = "Tiago Silva", email = "tiago.silva@dymmond.com" },
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = "MIT"
+keywords = ["OpenAPI", "open-api", "esmerald", "pydantic", "schema"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "pydantic >1.10.0,<2.0.0",
+    "email-validator >=1.2.1,<2.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/dymmond/openapi-schemas-pydantic"
+Documentation = "https://openapi-schemas.dymmond.com/"
+Changelog = "https://openapi-schemas.dymmond.com/release-notes/"
+Funding = "https://github.com/sponsors/tarsil"
+Source = "https://github.com/dymmond/openapi-schemas-pydantic"
+
+[project.optional-dependencies]
+test = [
+    "pytest >=7.1.3,<8.0.0",
+    "pytest-cov >=2.12.0,<4.0.0",
+    "pytest-asyncio >=0.19.0,<0.20.0",
+]
+
+dev = [
+    "pre-commit >=2.17.0,<3.0.0",
+]
+
+doc = [
+    "mkautodoc >=0.2.0,<0.3.0",
+    "mkdocs >=1.1.2,<2.0.0",
+    "mkdocs-material >=8.1.4,<9.0.0",
+    "mdx-include >=1.4.1,<2.0.0",
+    "mkdocs-markdownextradata-plugin >=0.1.7,<0.3.0",
+    "mkdocstrings>=0.19.0,<0.20.0",
+    "pyyaml >=5.3.1,<7.0.0",
+]
+
+[tool.hatch.version]
+path = "openapi_schemas_pydantic/__init__.py"
+
+[tool.isort]
+profile = "black"
+known_third_party = ["esmerald", "pydantic", "starlette"]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "openapi-schemas-pydantic.tests.*"
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+]
+xfail_strict = true
+junit_family = "xunit2"
