@@ -6,4 +6,4 @@ __all__ = [
     "construct_open_api_with_schema_class",
 ]
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
