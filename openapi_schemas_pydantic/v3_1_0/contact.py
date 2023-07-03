@@ -1,9 +1,21 @@
 from typing import Optional, Union
 
-from pydantic import AnyUrl, BaseModel, EmailStr, Extra, validator
+from pydantic import AnyUrl, BaseModel, ConfigDict, EmailStr
 
 
 class Contact(BaseModel):
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
+            "examples": [
+                {
+                    "name": "API Support",
+                    "url": "http://www.example.com/support",
+                    "email": "support@example.com",
+                }
+            ]
+        },
+    )
     """Contact information for the exposed API."""
 
     name: Optional[str] = None
@@ -22,35 +34,3 @@ class Contact(BaseModel):
     The email address of the contact person/organization.
     MUST be in the form of an email address.
     """
-
-    @validator("email", pre=True)
-    def validate_email(  # pylint: disable=no-self-argument
-        cls,
-        v: Union[EmailStr, str],
-    ) -> EmailStr:
-        """Validates that email is a valid email address.
-
-        Args:
-            v: Holds the email string to be validated
-
-        Raises:
-            ValueError: Value is not a valid email address
-
-        Returns:
-            Validated email string.
-        """
-        if isinstance(v, str):
-            v = EmailStr(v)
-        return v
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
-            "examples": [
-                {
-                    "name": "API Support",
-                    "url": "http://www.example.com/support",
-                    "email": "support@example.com",
-                }
-            ]
-        }

@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Set, Type, TypeVar, cast
 
 from pydantic import BaseModel, create_model
-from pydantic.schema import schema
+from pydantic.json_schema import models_json_schema
 
 from openapi_schemas_pydantic import v3_1_0
 
@@ -54,10 +54,10 @@ def construct_open_api_with_schema_class(
         for cls in schema_classes
     ]
     schema_classes.sort(key=lambda x: x.__name__)
-    schema_definitions = schema(schema_classes, ref_prefix=REF_PREFIX)["definitions"]
+    schema_definitions = models_json_schema(schema_classes, ref_template=REF_PREFIX)["definitions"]
     copied_schema.components.schemas.update(
         {
-            key: v3_1_0.Schema.parse_obj(schema_dict)
+            key: v3_1_0.Schema.model_validate(schema_dict)
             for key, schema_dict in schema_definitions.items()
         }
     )

@@ -1,10 +1,25 @@
 from typing import Any, Optional
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 
 class Example(BaseModel):
-
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
+            "examples": [
+                {"summary": "A foo example", "value": {"foo": "bar"}},
+                {
+                    "summary": "This is an example in XML",
+                    "externalValue": "http://example.org/examples/address-example.xml",
+                },
+                {
+                    "summary": "This is a text example",
+                    "externalValue": "http://foo.bar/examples/address-example.txt",
+                },
+            ]
+        },
+    )
     summary: Optional[str] = None
     """
     Short description for the example.
@@ -32,19 +47,3 @@ class Example(BaseModel):
     The `value` field and `externalValue` field are mutually exclusive.
     See the rules for resolving [Relative References](https://spec.openapis.org/oas/v3.1.0#relativeReferencesURI).
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
-            "examples": [
-                {"summary": "A foo example", "value": {"foo": "bar"}},
-                {
-                    "summary": "This is an example in XML",
-                    "externalValue": "http://example.org/examples/address-example.xml",
-                },
-                {
-                    "summary": "This is a text example",
-                    "externalValue": "http://foo.bar/examples/address-example.txt",
-                },
-            ]
-        }

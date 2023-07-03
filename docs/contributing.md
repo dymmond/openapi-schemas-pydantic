@@ -42,7 +42,7 @@ To develop for OpenAPI Schemas, create a fork of the [OpenAPI Schemas Pydantic r
 After, clone your fork with the follow command replacing `YOUR-USERNAME` wih your GitHub username:
 
 ```shell
-$ git clone https://github.com/YOUR-USERNAME/esmerald
+$ git clone https://github.com/YOUR-USERNAME/openapi_schemas_pydantic
 ```
 
 ### Install the project dependencies

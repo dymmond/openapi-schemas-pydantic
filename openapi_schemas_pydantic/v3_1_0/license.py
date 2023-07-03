@@ -1,10 +1,20 @@
 from typing import Optional
 
-from pydantic import AnyUrl, BaseModel, Extra
+from pydantic import AnyUrl, BaseModel, ConfigDict, Extra
 
 
 class License(BaseModel):
     """License information for the exposed API."""
+
+    model_config = ConfigDict(
+        extra=Extra.ignore,
+        json_schema_extra={
+            "examples": [
+                {"name": "Apache 2.0", "identifier": "Apache-2.0"},
+                {"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
+            ]
+        },
+    )
 
     name: str
     """
@@ -23,12 +33,3 @@ class License(BaseModel):
     This MUST be in the form of a URL.
     The `url` field is mutually exclusive of the `identifier` field.
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
-            "examples": [
-                {"name": "Apache 2.0", "identifier": "Apache-2.0"},
-                {"name": "Apache 2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0.html"},
-            ]
-        }

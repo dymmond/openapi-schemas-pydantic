@@ -39,7 +39,7 @@ class PongResponse(BaseModel):
 
 
 def test_construct_open_api_parse_obj() -> None:
-    open_api = OpenAPI.parse_obj(
+    open_api = OpenAPI.model_validate(
         {
             "info": {"title": "My own API", "version": "v0.0.1"},
             "paths": {

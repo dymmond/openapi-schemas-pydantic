@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .reference import Reference
 
@@ -10,6 +10,23 @@ if TYPE_CHECKING:
 
 class Encoding(BaseModel):
     """A single encoding definition applied to a single schema property."""
+
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
+            "examples": [
+                {
+                    "contentType": "image/png, image/jpeg",
+                    "headers": {
+                        "X-Rate-Limit-Limit": {
+                            "description": "The number of allowed requests in the current period",
+                            "schema": {"type": "integer"},
+                        }
+                    },
+                }
+            ]
+        },
+    )
 
     contentType: Optional[str] = None
     """
@@ -69,19 +86,3 @@ class Encoding(BaseModel):
     If a value is explicitly defined,
     then the value of [contentType](https://spec.openapis.org/oas/v3.1.0#encodingContentType) (implicit or explicit) SHALL be ignored.
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
-            "examples": [
-                {
-                    "contentType": "image/png, image/jpeg",
-                    "headers": {
-                        "X-Rate-Limit-Limit": {
-                            "description": "The number of allowed requests in the current period",
-                            "schema": {"type": "integer"},
-                        }
-                    },
-                }
-            ]
-        }

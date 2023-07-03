@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 
 class Discriminator(BaseModel):
@@ -14,19 +14,9 @@ class Discriminator(BaseModel):
     When using the discriminator, _inline_ schemas will not be considered.
     """
 
-    propertyName: str
-    """
-    **REQUIRED**. The name of the property in the payload that will hold the discriminator value.
-    """
-
-    mapping: Optional[Dict[str, str]] = None
-    """
-    An object to hold mappings between payload values and schema names or references.
-    """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
             "examples": [
                 {
                     "propertyName": "petType",
@@ -36,4 +26,15 @@ class Discriminator(BaseModel):
                     },
                 }
             ]
-        }
+        },
+    )
+
+    propertyName: str
+    """
+    **REQUIRED**. The name of the property in the payload that will hold the discriminator value.
+    """
+
+    mapping: Optional[Dict[str, str]] = None
+    """
+    An object to hold mappings between payload values and schema names or references.
+    """

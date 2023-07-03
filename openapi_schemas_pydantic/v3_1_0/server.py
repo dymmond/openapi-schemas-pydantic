@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict, Extra
 
 from .server_variable import ServerVariable
 
@@ -29,10 +29,9 @@ class Server(BaseModel):
 
     The value is used for substitution in the server's URL template.
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
+    model_config = ConfigDict(
+        extra=Extra.ignore,
+        json_schema_extra={
             "examples": [
                 {
                     "url": "https://development.gigantic-server.com/v1",
@@ -52,4 +51,5 @@ class Server(BaseModel):
                     },
                 },
             ]
-        }
+        },
+    )

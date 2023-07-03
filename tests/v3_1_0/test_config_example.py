@@ -66,8 +66,8 @@ def test_config_example() -> None:
         SecurityRequirement,
     ]
     for schema_type in all_types:
-        if getattr(schema_type, "Config", None) and getattr(schema_type.Config, "schema_extra", None):  # type: ignore
-            examples = schema_type.Config.schema_extra.get("examples")  # type: ignore
+        if getattr(schema_type, "Config", None) and getattr(schema_type.Config, "json_schema_extra", None):  # type: ignore
+            examples = schema_type.Config.json_schema_extra.get("examples")  # type: ignore
             for example_dict in examples:
                 obj = schema_type(**example_dict)
                 assert obj.__fields_set__

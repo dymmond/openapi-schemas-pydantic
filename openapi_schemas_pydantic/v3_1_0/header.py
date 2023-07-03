@@ -1,4 +1,4 @@
-from pydantic import Extra, Field
+from pydantic import ConfigDict, Extra, Field
 from typing_extensions import Literal
 
 from .parameter import Parameter
@@ -15,17 +15,17 @@ class Header(Parameter):
        (for example, [style](https://spec.openapis.org/oas/v3.1.0#parameterStyle)).
     """
 
-    name: Literal[""] = Field(default="", const=True)
-    param_in: Literal["header"] = Field(default="header", const=True, alias="in")
-
-    class Config:
-        extra = Extra.ignore
-        allow_population_by_field_name = True
-        schema_extra = {
+    model_config = ConfigDict(
+        extra=Extra.ignore,
+        populate_by_name=True,
+        json_schema_extra={
             "examples": [
                 {
                     "description": "The number of allowed requests in the current period",
                     "schema": {"type": "integer"},
                 }
             ]
-        }
+        },
+    )
+    name: Literal[""] = Field(default="")
+    param_in: Literal["header"] = Field(default="header", alias="in")

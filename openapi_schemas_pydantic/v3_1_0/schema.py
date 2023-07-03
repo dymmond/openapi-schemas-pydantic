@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, ConfigDict, Extra, Field
 
 from .discriminator import Discriminator
 from .external_documentation import ExternalDocumentation
@@ -368,7 +368,7 @@ class Schema(BaseModel):
     sets listed for this keyword.
     """
 
-    enum: Optional[List[Any]] = Field(default=None, min_items=1)
+    enum: Optional[List[Any]] = Field(default=None, min_length=1)
     """
     The value of this keyword MUST be an array.  This array SHOULD have
     at least one element.  Elements in the array SHOULD be unique.
@@ -823,11 +823,10 @@ class Schema(BaseModel):
     Deprecated: The example property has been deprecated in favor of the JSON Schema examples keyword.
     Use of example is discouraged, and later versions of this specification may remove it.
     """
-
-    class Config:
-        extra = Extra.ignore
-        allow_population_by_field_name = True
-        schema_extra = {
+    model_config = ConfigDict(
+        extra=Extra.ignore,
+        populate_by_name=True,
+        json_schema_extra={
             "examples": [
                 {"type": "string", "format": "email"},
                 {
@@ -917,4 +916,5 @@ class Schema(BaseModel):
                     ],
                 },
             ]
-        }
+        },
+    )

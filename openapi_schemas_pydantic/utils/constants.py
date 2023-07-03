@@ -216,9 +216,7 @@ PYDANTIC_TO_OPENAPI_PROPERTY_MAP: Dict[str, str] = {
     "gt": "exclusiveMinimum",
     "max_length": "maxLength",
     "min_length": "minLength",
-    "max_items": "maxItems",
-    "min_items": "minItems",
-    "regex": "pattern",
+    "pattern": "pattern",
     "title": "title",
     "description": "description",
 }

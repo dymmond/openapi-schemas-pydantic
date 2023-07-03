@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import Field
+from pydantic import ConfigDict, Field
 
 from openapi_schemas_pydantic.v3_1_0 import OpenAPI, Operation, PathItem
 
@@ -17,8 +17,7 @@ class ExtendedOperation(Operation):
         default=None, alias="x-codegen-request-body-name"
     )
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class ExtendedPathItem(PathItem):
