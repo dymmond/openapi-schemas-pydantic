@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Extra, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .discriminator import Discriminator
 from .external_documentation import ExternalDocumentation
@@ -824,7 +824,7 @@ class Schema(BaseModel):
     Use of example is discouraged, and later versions of this specification may remove it.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [
