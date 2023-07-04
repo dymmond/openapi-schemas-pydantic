@@ -1,8 +1,13 @@
 # Release Notes
 
-## 1.0.0
+## 2.0.0
 
-October 23, 2022.
+### Changed
+
+- This can cause breaking changes. This is an upgrade to pydantic 2.0 internally. When installing it,
+please be aware this will require at least pydantic 2.0 in your system.
+
+## 1.0.0
 
 ### Added
 
