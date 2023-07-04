@@ -24,7 +24,6 @@ from pydantic import (
     NegativeInt,
     NonNegativeInt,
     NonPositiveFloat,
-    PaymentCardNumber,
     PositiveFloat,
     PositiveInt,
     PostgresDsn,
@@ -50,6 +49,7 @@ from pydantic.fields import (
     SHAPE_TUPLE,
     SHAPE_TUPLE_ELLIPSIS,
 )
+from pydantic_extra_types.payment import PaymentCardNumber
 
 from openapi_schemas_pydantic.utils.enums import OpenAPIFormat, OpenAPIType
 from openapi_schemas_pydantic.v3_1_0.schema import Schema

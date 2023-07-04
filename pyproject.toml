@@ -35,7 +35,11 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-dependencies = ["pydantic>=2.0.0,<3.0.0", "email-validator >=1.2.1,<2.0.0"]
+dependencies = [
+    "pydantic>=2.0.0,<3.0.0",
+    "pydantic-extra-types>=2.0.0,<3.0.0",
+    "email-validator >=1.2.1,<2.0.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/dymmond/openapi-schemas-pydantic"
