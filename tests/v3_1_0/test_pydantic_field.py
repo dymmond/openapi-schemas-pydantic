@@ -28,12 +28,12 @@ def test_pydantic_discriminator_openapi_generation() -> None:
         "data": Schema(
             oneOf=[
                 Reference(
-                    ref="#/components/schemas/DataAModel",
+                    ref="#/$defs/DataAModel",
                     summary=None,
                     description=None,
                 ),
                 Reference(
-                    ref="#/components/schemas/DataBModel",
+                    ref="#/$defs/DataBModel",
                     summary=None,
                     description=None,
                 ),
@@ -42,8 +42,8 @@ def test_pydantic_discriminator_openapi_generation() -> None:
             discriminator=Discriminator(
                 propertyName="kind",
                 mapping={
-                    "a": "#/components/schemas/DataAModel",
-                    "b": "#/components/schemas/DataBModel",
+                    "a": "#/$defs/DataAModel",
+                    "b": "#/$defs/DataBModel",
                 },
             ),
         )

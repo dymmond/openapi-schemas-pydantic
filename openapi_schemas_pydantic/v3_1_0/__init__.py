@@ -37,8 +37,11 @@ from .tag import Tag
 from .xml import XML
 
 # resolve forward references
-Encoding.update_forward_refs(Header=Header)
-Schema.update_forward_refs()
+Encoding.model_rebuild()
+Schema.model_rebuild()
+Header.model_rebuild()
+Reference.model_rebuild()
+Operation.model_rebuild()
 
 __all__ = [
     "Callback",

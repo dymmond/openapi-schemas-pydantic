@@ -4,7 +4,7 @@ from openapi_schemas_pydantic.v3_1_0 import Info, OpenAPI, Operation, PathItem, 
 def test_readme_example() -> None:
     open_api_1 = readme_example_1()
     assert open_api_1
-    open_api_json_1 = open_api_1.json(by_alias=True, exclude_none=True, indent=2)
+    open_api_json_1 = open_api_1.model_dump_json(by_alias=True, exclude_none=True, indent=2)
     assert open_api_json_1
 
     open_api_2 = readme_example_2()
@@ -27,7 +27,7 @@ def readme_example_1() -> OpenAPI:
 
 def readme_example_2() -> OpenAPI:
     """Construct OpenAPI from raw data object."""
-    return OpenAPI.parse_obj(
+    return OpenAPI.model_validate(
         {
             "info": {"title": "My own API", "version": "v0.0.1"},
             "paths": {"/ping": {"get": {"responses": {"200": {"description": "pong"}}}}},
@@ -37,7 +37,7 @@ def readme_example_2() -> OpenAPI:
 
 def readme_example_3() -> OpenAPI:
     """Construct OpenAPI from mixed object."""
-    return OpenAPI.parse_obj(
+    return OpenAPI.model_validate(
         {
             "info": {"title": "My own API", "version": "v0.0.1"},
             "paths": {"/ping": PathItem(get={"responses": {"200": Response(description="pong")}})},  # type: ignore

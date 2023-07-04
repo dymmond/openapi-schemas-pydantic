@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Set, Type, TypeVar, cast
 
 from pydantic import BaseModel, create_model
-from pydantic.schema import schema
+from pydantic.json_schema import models_json_schema
 
 from openapi_schemas_pydantic import v3_1_0
 
@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 REF_PREFIX = "#/components/schemas/"
 SCHEMA_NAME_ATTRIBUTE = "__schema_name__"
+MODE = "validation"
 
 T = TypeVar("T", bound=v3_1_0.OpenAPI)
 
@@ -34,7 +35,7 @@ def construct_open_api_with_schema_class(
         new OpenAPI object with "#/components/schemas" values updated. If there is no update in
             "#/components/schemas" values, the original `open_api` will be returned.
     """
-    copied_schema = open_api_schema.copy(deep=True)
+    copied_schema = open_api_schema.model_copy(deep=True)
     schema_classes = list(
         extract_pydantic_types_to_openapi_components(obj=copied_schema, ref_class=v3_1_0.Reference)
     )
@@ -48,17 +49,19 @@ def construct_open_api_with_schema_class(
         copied_schema.components.schemas = cast("Dict[str, Any]", {})
 
     schema_classes = [
-        cls
-        if not hasattr(cls, "__schema_name__")
-        else create_model(getattr(cls, SCHEMA_NAME_ATTRIBUTE), __base__=cls)
+        (cls, MODE)
+        if not hasattr(cls, SCHEMA_NAME_ATTRIBUTE)
+        else (create_model(getattr(cls, SCHEMA_NAME_ATTRIBUTE), __base__=cls), MODE)
         for cls in schema_classes
     ]
-    schema_classes.sort(key=lambda x: x.__name__)
-    schema_definitions = schema(schema_classes, ref_prefix=REF_PREFIX)["definitions"]
+
+    schema_classes.sort(key=lambda x: x[0].__name__)
+    _, json_schema = models_json_schema(schema_classes)
+
     copied_schema.components.schemas.update(
         {
-            key: v3_1_0.Schema.parse_obj(schema_dict)
-            for key, schema_dict in schema_definitions.items()
+            key: v3_1_0.Schema.model_validate(schema_dict)
+            for key, schema_dict in json_schema["$defs"].items()
         }
     )
     return copied_schema
@@ -80,7 +83,7 @@ def extract_pydantic_types_to_openapi_components(
     """
     pydantic_schemas: Set[Type[BaseModel]] = set()
     if isinstance(obj, BaseModel):
-        fields = obj.__fields_set__
+        fields = obj.model_fields_set
         for field in fields:
             child_obj = getattr(obj, field)
             if isinstance(child_obj, OpenAPI310PydanticSchema):

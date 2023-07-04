@@ -1,6 +1,6 @@
 from typing import Optional, Union
 
-from pydantic import AnyUrl, BaseModel, Extra, Field
+from pydantic import AnyUrl, BaseModel, ConfigDict, Field
 from typing_extensions import Literal
 
 from .oauth_flows import OAuthFlows
@@ -71,11 +71,10 @@ class SecurityScheme(BaseModel):
     **REQUIRED** for `openIdConnect`. OpenId Connect URL to discover OAuth2 configuration values.
     This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.
     """
-
-    class Config:
-        extra = Extra.ignore
-        allow_population_by_field_name = True
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="ignore",
+        populate_by_name=True,
+        json_schema_extra={
             "examples": [
                 {"type": "http", "scheme": "basic"},
                 {"type": "apiKey", "name": "api_key", "in": "header"},
@@ -98,4 +97,5 @@ class SecurityScheme(BaseModel):
                     "openIdConnectUrl": "openIdConnect",
                 },  # issue #5: allow relative path
             ]
-        }
+        },
+    )

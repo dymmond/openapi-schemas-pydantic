@@ -7,13 +7,17 @@ name = "openapi-schemas-pydantic"
 dynamic = ['version']
 description = "OpenAPI Schema using pydantic. Forked for Esmerald."
 long_description = "OpenAPI Schema using pydantic. Forked for Esmerald."
-authors = [
-    { name = "Tiago Silva", email = "tiago.silva@dymmond.com" },
-]
-requires-python = ">=3.7"
+authors = [{ name = "Tiago Silva", email = "tiago.silva@dymmond.com" }]
+requires-python = ">=3.8"
 readme = "README.md"
 license = "MIT"
-keywords = ["OpenAPI", "open-api", "esmerald", "pydantic", "schema"]
+keywords = [
+    "OpenAPI",
+    "open-api",
+    "openapi_schemas_pydantic",
+    "pydantic",
+    "schema",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Web Environment",
@@ -32,8 +36,9 @@ classifiers = [
 ]
 
 dependencies = [
-    "pydantic >1.10.0,<2.0.0",
-    "email-validator >=1.2.1,<2.0.0"
+    "pydantic>=2.0.0,<3.0.0",
+    "pydantic-extra-types>=2.0.0,<3.0.0",
+    "email-validator >=1.2.1,<2.0.0",
 ]
 
 [project.urls]
@@ -51,7 +56,11 @@ test = [
 ]
 
 dev = [
-    "pre-commit >=2.17.0,<3.0.0",
+    "black>=23.0.0,<30.0.0",
+    "isort>=5.12.0,<6.0.0",
+    "mypy==1.4.1",
+    "pre-commit>=2.17.0,<3.0.0",
+    "ruff>=0.0.275,<1.0.0",
 ]
 
 doc = [
@@ -64,6 +73,23 @@ doc = [
     "pyyaml >=5.3.1,<7.0.0",
 ]
 
+[tool.ruff]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+]
+ignore = [
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+]
+
+exclude = ["docs/*"]
+
+
 [tool.hatch.version]
 path = "openapi_schemas_pydantic/__init__.py"
 
@@ -73,6 +99,17 @@ known_third_party = ["esmerald", "pydantic", "starlette"]
 
 [tool.mypy]
 strict = true
+warn_unused_configs = true
+warn_unreachable = true
+warn_return_any = true
+disallow_untyped_decorators = true
+disallow_any_generics = false
+implicit_reexport = false
+show_error_codes = true
+disallow_incomplete_defs = true
+disable_error_code = "attr-defined"
+warn_unused_ignores = true
+warn_redundant_casts = true
 
 [[tool.mypy.overrides]]
 module = "openapi-schemas-pydantic.tests.*"
@@ -80,14 +117,9 @@ ignore_missing_imports = true
 check_untyped_defs = true
 
 [tool.pytest.ini_options]
-addopts = [
-  "--strict-config",
-  "--strict-markers",
-]
+addopts = ["--strict-config", "--strict-markers"]
 xfail_strict = true
 junit_family = "xunit2"
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/openapi_schemas_pydantic",
-]
+include = ["/openapi_schemas_pydantic"]

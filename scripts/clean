@@ -9,8 +9,8 @@ fi
 if [ -d 'htmlcov' ] ; then
     rm -r htmlcov
 fi
-if [ -d 'openapi-schemas-pydantic.egg-info' ] ; then
-    rm -r esmerald.egg-info
+if [ -d 'openapi_schemas_pydantic.egg-info' ] ; then
+    rm -r openapi_schemas_pydantic.egg-info
 fi
 if [ -d '.hypothesis' ] ; then
     rm -r .hypothesis
@@ -20,4 +20,7 @@ if [ -d '.mypy_cache' ] ; then
 fi
 if [ -d '.pytest_cache' ] ; then
     rm -r .pytest_cache
+fi
+if [ -d '.ruff_cache' ] ; then
+    rm -r .ruff_cache
 fi

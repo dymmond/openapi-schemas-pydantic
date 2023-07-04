@@ -1,6 +1,6 @@
 from typing import Dict, Optional, Union
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .header import Header
 from .link import Link
@@ -40,10 +40,9 @@ class Response(BaseModel):
     The key of the map is a short name for the link,
     following the naming constraints of the names for `Component Objects <https://spec.openapis.org/oas/v3.1.0#componentsObject).
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
             "examples": [
                 {
                     "description": "A complex object array response",
@@ -80,4 +79,5 @@ class Response(BaseModel):
                 },
                 {"description": "object created"},
             ]
-        }
+        },
+    )

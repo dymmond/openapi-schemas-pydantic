@@ -1,7 +1,4 @@
-#!/usr/bin/env bash
-
-set -e
-set -x
+#!/bin/sh -e
 
 export PREFIX=""
 if [ "$VIRTUAL_ENV" != '' ]; then
@@ -9,12 +6,12 @@ if [ "$VIRTUAL_ENV" != '' ]; then
 elif [ -d 'venv' ] ; then
     export PREFIX="venv/bin/"
 fi
-export SOURCE_FILES="openapi_schemas_pydantic tests"
+export SOURCE_FILES="openapi_schemas_pydantic tests docs"
 export EXCLUDE=__init__.py
 
 set -x
 
-# mypy esmerald
-${PREFIX}autoflake --remove-all-unused-imports  --remove-unused-variables --exclude $EXCLUDE --in-place --recursive $SOURCE_FILES
-${PREFIX}black $SOURCE_FILES --check --line-length 99
-${PREFIX}isort $SOURCE_FILES --check-only
+${PREFIX}ruff $SOURCE_FILES --fix --line-length 99
+${PREFIX}black $SOURCE_FILES --line-length 99
+${PREFIX}isort $SOURCE_FILES --project=openapi_schemas_pydantic --line-length 99
+# ${PREFIX}mypy openapi_schemas_pydantic

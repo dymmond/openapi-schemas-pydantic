@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .oauth_flow import OAuthFlow
 
@@ -32,5 +32,4 @@ class OAuthFlows(BaseModel):
     Previously called `accessCode` in OpenAPI 2.0.
     """
 
-    class Config:
-        extra = Extra.ignore
+    model_config = ConfigDict(extra="ignore")

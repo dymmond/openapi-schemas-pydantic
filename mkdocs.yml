@@ -28,7 +28,7 @@ theme:
     - search.highlight
     - content.tabs.link
 
-repo_name: dymmond/esmerald
+repo_name: dymmond/openapi-schemas-pydantic
 repo_url: https://github.com/dymmond/openapi-schemas-pydantic
 edit_uri: ""
 plugins:

@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .callback import Callback
 from .external_documentation import ExternalDocumentation
@@ -105,10 +105,9 @@ class Operation(BaseModel):
     If an alternative `server` object is specified at the Path Item Object or Root level,
     it will be overridden by this value.
     """
-
-    class Config:
-        extra = Extra.ignore
-        schema_extra = {
+    model_config = ConfigDict(
+        extra="ignore",
+        json_schema_extra={
             "examples": [
                 {
                     "tags": ["pet"],
@@ -156,4 +155,5 @@ class Operation(BaseModel):
                     "security": [{"petstore_auth": ["write:pets", "read:pets"]}],
                 }
             ]
-        }
+        },
+    )

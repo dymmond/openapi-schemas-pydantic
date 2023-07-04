@@ -2,7 +2,7 @@ from openapi_schemas_pydantic.v3_1_0 import Reference, Schema
 
 
 def test_schema_parse_obj() -> None:
-    parsed_schema = Schema.parse_obj(
+    parsed_schema = Schema.model_validate(
         {
             "title": "reference list",
             "description": "schema for list of reference type",

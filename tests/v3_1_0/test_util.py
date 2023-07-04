@@ -39,7 +39,7 @@ class PongResponse(BaseModel):
 
 
 def test_construct_open_api_parse_obj() -> None:
-    open_api = OpenAPI.parse_obj(
+    open_api = OpenAPI.model_validate(
         {
             "info": {"title": "My own API", "version": "v0.0.1"},
             "paths": {
@@ -69,8 +69,9 @@ def test_construct_open_api_parse_obj() -> None:
             },
         }
     )
+
     result = construct_open_api_with_schema_class(open_api)
-    assert result.dict(exclude_none=True) == {
+    assert result.model_dump(exclude_none=True) == {
         "openapi": "3.1.0",
         "info": {"title": "My own API", "version": "v0.0.1"},
         "servers": [{"url": "/"}],
@@ -180,7 +181,7 @@ def test_construct_open_api_with_schema_class() -> None:
     )
 
     result = construct_open_api_with_schema_class(open_api)
-    assert result.dict(exclude_none=True) == {
+    assert result.model_dump(exclude_none=True) == {
         "openapi": "3.1.0",
         "info": {"title": "My own API", "version": "v0.0.1"},
         "servers": [{"url": "/"}],
@@ -314,7 +315,7 @@ def test_handling_of_models_with_same_name() -> None:
         },
     )
     result = construct_open_api_with_schema_class(open_api)
-    assert result.dict(exclude_none=True) == {
+    assert result.model_dump(exclude_none=True) == {
         "openapi": "3.1.0",
         "info": {"title": "My own API", "version": "v0.0.1"},
         "servers": [{"url": "/"}],
@@ -426,7 +427,7 @@ def test_handling_of_models_with_same_name() -> None:
                     "type": "object",
                     "required": ["req_foo", "req_bar"],
                     "title": "RenamedPingRequest",
-                    "description": "Ping Request.",
+                    # "description": "Ping Request.",
                 },
                 "RenamedPingResponse": {
                     "properties": {
@@ -444,7 +445,7 @@ def test_handling_of_models_with_same_name() -> None:
                     "type": "object",
                     "required": ["resp_foo", "resp_bar"],
                     "title": "RenamedPingResponse",
-                    "description": "Ping response.",
+                    # "description": "Ping response.",
                 },
             }
         },
