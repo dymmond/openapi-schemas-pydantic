@@ -1,6 +1,6 @@
 from collections import deque
 from datetime import date, datetime, time, timedelta
-from typing import Any, Dict, Pattern, Type, Union
+from typing import Any, Callable, Dict, Pattern, Type, Union
 from uuid import UUID
 
 from pydantic import (
@@ -27,7 +27,6 @@ from pydantic import (
     PositiveFloat,
     PositiveInt,
     PostgresDsn,
-    PyObject,
     RedisDsn,
     SecretBytes,
     SecretStr,
@@ -37,7 +36,7 @@ from pydantic import (
     StrictInt,
     StrictStr,
 )
-from pydantic.fields import (
+from pydantic.v1.fields import (
     SHAPE_DEFAULTDICT,
     SHAPE_DEQUE,
     SHAPE_DICT,
@@ -53,6 +52,8 @@ from pydantic_extra_types.payment import PaymentCardNumber
 
 from openapi_schemas_pydantic.utils.enums import OpenAPIFormat, OpenAPIType
 from openapi_schemas_pydantic.v3_1_0.schema import Schema
+
+PyObject = Callable[..., Any]
 
 PYDANTIC_FIELD_SHAPE_MAP: Dict[int, OpenAPIType] = {
     SHAPE_LIST: OpenAPIType.ARRAY,
