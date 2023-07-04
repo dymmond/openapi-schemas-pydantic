@@ -1,12 +1,18 @@
+import json
 from typing import Dict, Optional
 
 from pydantic import ConfigDict, Field
 
 from openapi_schemas_pydantic.v3_1_0 import OpenAPI, Operation, PathItem
+from openapi_schemas_pydantic.v3_1_0 import Reference as Reference  # noqa
 
 
 def test_swagger_openapi_v3() -> None:
-    open_api = ExtendedOpenAPI.parse_file("tests/data/swagger_openapi_v3.0.1.json")
+    location = "tests/data/swagger_openapi_v3.0.1.json"
+    with open(location) as loc:
+        data = json.load(loc)
+
+    open_api = ExtendedOpenAPI.model_validate(data)
     assert open_api
 
 
@@ -33,3 +39,6 @@ class ExtendedPathItem(PathItem):
 
 class ExtendedOpenAPI(OpenAPI):
     paths: Dict[str, ExtendedPathItem]  # type: ignore
+
+
+ExtendedOpenAPI.model_rebuild()

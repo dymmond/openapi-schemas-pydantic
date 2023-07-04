@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .server import Server
 
@@ -63,7 +63,7 @@ class Link(BaseModel):
     """
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

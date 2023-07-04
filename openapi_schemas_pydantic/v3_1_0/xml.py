@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 
 class XML(BaseModel):
@@ -46,7 +46,7 @@ class XML(BaseModel):
     The definition takes effect only when defined alongside `type` being `array` (outside the `items`).
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {"name": "animal"},

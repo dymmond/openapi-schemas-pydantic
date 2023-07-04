@@ -1,6 +1,6 @@
 from typing import Dict, Optional, Union
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Extra
+from pydantic import AnyUrl, BaseModel, ConfigDict
 
 
 class OAuthFlow(BaseModel):
@@ -37,7 +37,7 @@ class OAuthFlow(BaseModel):
     """
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

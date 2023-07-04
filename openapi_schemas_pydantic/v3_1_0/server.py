@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .server_variable import ServerVariable
 
@@ -30,7 +30,7 @@ class Server(BaseModel):
     The value is used for substitution in the server's URL template.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

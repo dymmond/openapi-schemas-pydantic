@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .external_documentation import ExternalDocumentation
 
@@ -29,6 +29,6 @@ class Tag(BaseModel):
     Additional external documentation for this tag.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={"examples": [{"name": "pet", "description": "Pets operations"}]},
     )

@@ -1,13 +1,13 @@
 from typing import Optional
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Extra
+from pydantic import AnyUrl, BaseModel, ConfigDict
 
 
 class ExternalDocumentation(BaseModel):
     """Allows referencing an external resource for extended documentation."""
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [{"description": "Find more info here", "url": "https://example.com"}]
         },

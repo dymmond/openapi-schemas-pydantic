@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Extra
+from pydantic import AnyUrl, BaseModel, ConfigDict
 
 from .contact import Contact
 from .license import License
@@ -15,7 +15,7 @@ class Info(BaseModel):
     """
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

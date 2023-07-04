@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .callback import Callback
 from .external_documentation import ExternalDocumentation
@@ -106,7 +106,7 @@ class Operation(BaseModel):
     it will be overridden by this value.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

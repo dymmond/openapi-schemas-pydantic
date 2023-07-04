@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, Extra, Field
+from pydantic import ConfigDict, Field
 from typing_extensions import Literal
 
 from .parameter import Parameter
@@ -16,7 +16,7 @@ class Header(Parameter):
     """
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [

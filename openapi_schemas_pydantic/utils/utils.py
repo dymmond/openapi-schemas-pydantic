@@ -83,7 +83,7 @@ def extract_pydantic_types_to_openapi_components(
     """
     pydantic_schemas: Set[Type[BaseModel]] = set()
     if isinstance(obj, BaseModel):
-        fields = obj.__fields_set__
+        fields = obj.model_fields_set
         for field in fields:
             child_obj = getattr(obj, field)
             if isinstance(child_obj, OpenAPI310PydanticSchema):

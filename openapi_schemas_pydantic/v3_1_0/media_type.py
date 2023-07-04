@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Extra, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .encoding import Encoding
 from .example import Example
@@ -50,7 +50,7 @@ class MediaType(BaseModel):
     """
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [

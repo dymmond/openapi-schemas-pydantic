@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Extra, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Reference(BaseModel):
@@ -29,7 +29,7 @@ class Reference(BaseModel):
     If the referenced object-type does not allow a `description` field, then this field has no effect.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [

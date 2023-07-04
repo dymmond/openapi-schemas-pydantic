@@ -1,6 +1,6 @@
 from typing import Dict, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Extra
+from pydantic import BaseModel, ConfigDict
 
 from .header import Header
 from .link import Link
@@ -41,7 +41,7 @@ class Response(BaseModel):
     following the naming constraints of the names for `Component Objects <https://spec.openapis.org/oas/v3.1.0#componentsObject).
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {

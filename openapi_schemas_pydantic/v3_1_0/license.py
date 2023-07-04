@@ -1,13 +1,13 @@
 from typing import Optional
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Extra
+from pydantic import AnyUrl, BaseModel, ConfigDict
 
 
 class License(BaseModel):
     """License information for the exposed API."""
 
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         json_schema_extra={
             "examples": [
                 {"name": "Apache 2.0", "identifier": "Apache-2.0"},

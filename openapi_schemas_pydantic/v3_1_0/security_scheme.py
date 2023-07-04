@@ -1,6 +1,6 @@
 from typing import Optional, Union
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Extra, Field
+from pydantic import AnyUrl, BaseModel, ConfigDict, Field
 from typing_extensions import Literal
 
 from .oauth_flows import OAuthFlows
@@ -72,7 +72,7 @@ class SecurityScheme(BaseModel):
     This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [

@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Extra, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .example import Example
 from .media_type import MediaType
@@ -77,7 +77,7 @@ class Parameter(BaseModel):
     - for `cookie` - `form`.
     """
 
-    explode: bool = False
+    explode: Optional[bool] = None
     """
     When this is true, parameter values of type `array` or `object` generate separate parameters
     for each value of the array or key-value pair of the map.
@@ -133,7 +133,7 @@ class Parameter(BaseModel):
     The map MUST only contain one entry.
     """
     model_config = ConfigDict(
-        extra=Extra.ignore,
+        extra="ignore",
         populate_by_name=True,
         json_schema_extra={
             "examples": [
