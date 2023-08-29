@@ -1,5 +1,11 @@
 # Release Notes
 
+## 3.0.0
+
+### Fixed
+
+- Requirements for email validator
+
 ## 2.0.0
 
 ### Changed
