@@ -5,7 +5,7 @@
   <a href="https://esmerald.dev"><img src="https://res.cloudinary.com/dymmond/image/upload/v1673619342/esmerald/img/logo-gr_z1ot8o.png" alt='Esmerald'></a>
 </p>
 
-**Documentation**: [https://openapi-schemas.dymmond.com](https://openapi-schemas.dymmond.com) 📚
+**Documentation**: [https://openapi-schemas.dymmond.com](https://openapi-schemas-pydantic.dymmond.com) 📚
 
 **Source Code**: [https://www.github.com/dymmond/openapi-schemas-pydantic](https://www.github.com/dymmond/openapi-schemas-pydantic)
 
